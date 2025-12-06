@@ -48,6 +48,7 @@ media-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "exopl
 media-ui-compose = { group = "androidx.media3", name = "media3-ui-compose", version.ref = "exoplayer" }
 
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "serialization" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 retrofit = { group = "com.squareup.retrofit2", name= "retrofit", version.ref = "retrofit" }
 retrofit-gson-converter = { group = "com.squareup.retrofit2", name="converter-gson", version.ref = "retrofit" }
 core-splashscreen = { group = "androidx.core", name="core-splashscreen", version.ref = "splashscreen" }

@@ -82,6 +82,7 @@ dependencies {
 
     // Serialization
     implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
 
     // Networking
     implementation(libs.retrofit)
