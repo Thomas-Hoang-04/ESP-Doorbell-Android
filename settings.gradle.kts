@@ -19,6 +19,10 @@ dependencyResolutionManagement {
     }
 }
 
+plugins {
+    id("com.gradle.develocity") version("4.3")
+}
+
 rootProject.name = "Doorbell"
 include(":app")
  

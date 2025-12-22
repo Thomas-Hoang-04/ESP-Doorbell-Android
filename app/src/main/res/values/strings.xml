@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">Doorbell</string>
+    <string name="app_name" translatable="false">Doorbell</string>
+    <string name="usr_prompt">Enter username</string>
+    <string name="pwd_prompt">Enter password</string>
+    <string name="usr_label">Username</string>
+    <string name="pwd_label">Password</string>
+    <string name="username_empty_error">Username cannot be empty</string>
+    <string name="username_invalid_error">Invalid username</string>
+    <string name="password_empty_error">Password cannot be empty</string>
+    <string name="password_length_error">Password must be at least 6 characters</string>
+    <string name="acc_save">Save Account</string>
+    <string name="forget_pwd">Forget Password?</string>
+    <string name="login">Log In</string>
+    <string name="register_prompt_1">Not yet have an account?</string>
+    <string name="register_prompt_2">Register here</string>
+    <string name="login_prompt_1">Already have an account?</string>
+    <string name="login_prompt_2">Log in here</string>
+    <string name="user_not_exist_error">User does not exist</string>
+    <string name="user_exist_error">User existed</string>
+    <string name="error">Error occured. Please try again</string>
+    <string name="pwd_error">Incorrect password</string>
 </resources>

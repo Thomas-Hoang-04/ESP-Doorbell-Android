@@ -1,0 +1,21 @@
+<resources>
+    <string name="usr_prompt">Nhập tên tài khoản</string>
+    <string name="pwd_prompt">Nhập mật khẩu</string>
+    <string name="usr_label">Tên tài khoản</string>
+    <string name="pwd_label">Mật khẩu</string>
+    <string name="username_empty_error">Tài khoản không được để trống</string>
+    <string name="username_invalid_error">Tài khoản không hợp lệ</string>
+    <string name="password_empty_error">Mật khẩu không được để trống</string>
+    <string name="password_length_error">Mật khẩu phải có ít nhất 6 ký tự</string>
+    <string name="acc_save">Lưu tài khoản</string>
+    <string name="forget_pwd">Quên mật khẩu?</string>
+    <string name="login">Đăng nhập</string>
+    <string name="register_prompt_1">Chưa có tài khoản?</string>
+    <string name="register_prompt_2">Đăng ký tại đây</string>
+    <string name="login_prompt_1">Đã có tài khoản?</string>
+    <string name="login_prompt_2">Đăng nhập tại đây</string>
+    <string name="user_not_exist_error">Người dùng không tồn tại</string>
+    <string name="user_exist_error">Người dùng đã tồn tại</string>
+    <string name="error">Có lỗi xảy ra. Vui lòng thử lại</string>
+    <string name="pwd_error">Mật khẩu không đúng</string>
+</resources>

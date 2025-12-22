@@ -5,7 +5,6 @@ import com.thomas.doorbell.dto.DeviceAccessRequest
 import com.thomas.doorbell.dto.DeviceRegisterRequest
 import com.thomas.doorbell.dto.DeviceUpdateRequest
 import com.thomas.doorbell.dto.Event
-import com.thomas.doorbell.dto.ProfileUpdateRequest
 import com.thomas.doorbell.dto.User
 import com.thomas.doorbell.dto.UserDeviceAccess
 import retrofit2.Response
@@ -28,12 +27,6 @@ interface APIInterface {
 
     @GET("api/users/{id}/devices")
     suspend fun listUserDevices(@Path("id") id: UUID): Response<List<UserDeviceAccess>>
-
-    @PATCH("api/users/{id}/profile")
-    suspend fun updateProfile(
-        @Path("id") id: UUID,
-        @Body request: ProfileUpdateRequest
-    ): Response<User>
 
     @GET("api/devices")
     suspend fun listDevices(): Response<List<Device>>

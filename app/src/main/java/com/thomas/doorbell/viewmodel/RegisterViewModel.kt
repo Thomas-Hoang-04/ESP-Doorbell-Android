@@ -6,9 +6,6 @@ import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thomas.doorbell.R
-import com.thomas.doorbell.dto.AvailabilityResponse
-import com.thomas.doorbell.dto.LoginRequest
-import com.thomas.doorbell.dto.LoginResponse
 import com.thomas.doorbell.keystore.TokenManager
 import com.thomas.doorbell.keystore.UserData
 import com.thomas.doorbell.network.AuthInterface
