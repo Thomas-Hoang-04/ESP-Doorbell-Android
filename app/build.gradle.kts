@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.ksp)
     alias(libs.plugins.hilt.android)
 }
 
@@ -91,8 +91,8 @@ dependencies {
     // Dependency Injection with Hilt
     implementation(libs.hilt)
     implementation(libs.hilt.viewmodel)
-    kapt(libs.hilt.compiler)
-    kapt(libs.androidx.hilt.compiler)
+    ksp(libs.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
 
     // Ktor WebSocket
     implementation(libs.ktor.client.core)

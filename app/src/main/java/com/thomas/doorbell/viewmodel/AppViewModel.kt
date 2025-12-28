@@ -37,7 +37,7 @@ class AppViewModel @Inject constructor(
     private val tokenManager: TokenManager,
     private val networkMonitor: NetworkMonitor
 ): ViewModel() {
-    private val _startDestination = MutableStateFlow<NavRoute>(NavRoute.Auth)
+    private val _startDestination = MutableStateFlow<NavRoute>(NavRoute.Auth.Login)
     val startDestination = _startDestination.asStateFlow()
 
     private val _isReady = MutableStateFlow(false)

@@ -17,8 +17,9 @@ fun DoorbellComposeApp(
     viewModel: AppViewModel = hiltViewModel()
 ) {
     val dest: NavRoute = when (startDestination) {
-        is NavRoute.Auth.OTP -> NavRoute.Auth
-        else -> startDestination
+        is NavRoute.Auth -> NavRoute.AuthEntry
+        is NavRoute.Home -> NavRoute.Home
+        else -> NavRoute.AuthEntry
     }
     val navStack = rememberNavBackStack(dest)
     NavDisplay(
@@ -29,7 +30,7 @@ fun DoorbellComposeApp(
             rememberViewModelStoreNavEntryDecorator()
         ),
         entryProvider = entryProvider {
-            entry<NavRoute.Auth> {
+            entry<NavRoute.AuthEntry> {
                 AuthNavigation(
                     startDestination = startDestination,
                     rootBackStack = navStack,

@@ -45,10 +45,13 @@ sealed interface NavRoute: NavKey {
             val withOrigin: Boolean = false,
             val withAuthEndpoint: Auth? = null,
             val wipeBackStack: Boolean = false
-        ): NavRoute {
+        ): Auth {
             fun toRequest(purpose: OTPPurpose): OTPRequest = OTPRequest(username, email, purpose)
         }
     }
+
+    @Serializable
+    data object AuthEntry: NavRoute
 
     @Serializable
     data object Home: NavRoute
