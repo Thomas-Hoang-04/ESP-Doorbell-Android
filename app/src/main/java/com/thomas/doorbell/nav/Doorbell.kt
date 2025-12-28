@@ -12,10 +12,15 @@ import com.thomas.doorbell.viewmodel.AppViewModel
 
 @Composable
 fun DoorbellComposeApp(
+    startDestination: NavRoute,
     modifier: Modifier,
     viewModel: AppViewModel = hiltViewModel()
 ) {
-    val navStack = rememberNavBackStack(NavRoute.Auth)
+    val dest: NavRoute = when (startDestination) {
+        is NavRoute.Auth.OTP -> NavRoute.Auth
+        else -> startDestination
+    }
+    val navStack = rememberNavBackStack(dest)
     NavDisplay(
         modifier = modifier,
         backStack = navStack,
@@ -26,6 +31,7 @@ fun DoorbellComposeApp(
         entryProvider = entryProvider {
             entry<NavRoute.Auth> {
                 AuthNavigation(
+                    startDestination = startDestination,
                     rootBackStack = navStack,
                     modifier = modifier,
                     appViewModel = viewModel

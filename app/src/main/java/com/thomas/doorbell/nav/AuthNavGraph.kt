@@ -9,18 +9,21 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.thomas.doorbell.screens.ForgetPasswordEntry
+import com.thomas.doorbell.screens.ForgotPasswordEntry
 import com.thomas.doorbell.screens.LoginEntry
 import com.thomas.doorbell.screens.RegisterEntry
+import com.thomas.doorbell.screens.ResetPasswordEntry
+import com.thomas.doorbell.screens.VerifyEmail
 import com.thomas.doorbell.viewmodel.AppViewModel
 
 @Composable
 fun AuthNavigation(
+    startDestination: NavRoute,
     rootBackStack: NavBackStack<NavKey>,
     modifier: Modifier,
-    appViewModel: AppViewModel
+    appViewModel: AppViewModel,
 ) {
-    val authBackStack = rememberNavBackStack(NavRoute.Auth.Login)
+    val authBackStack = rememberNavBackStack(startDestination)
     NavDisplay(
         backStack = authBackStack,
         modifier = modifier,
@@ -39,10 +42,32 @@ fun AuthNavigation(
                 }
             }
             entry<NavRoute.Auth.Register> {
-                RegisterEntry()
+                RegisterEntry(
+                    backStack = authBackStack,
+                    appViewModel = appViewModel
+                ) {
+                    rootBackStack.clear()
+                    rootBackStack.add(NavRoute.Home)
+                }
+            }
+            entry<NavRoute.Auth.OTP> {
+                VerifyEmail(
+                    backStack = authBackStack,
+                    appViewModel = appViewModel,
+                    it
+                ) {
+                    rootBackStack.clear()
+                    rootBackStack.add(NavRoute.Home)
+                }
             }
             entry<NavRoute.Auth.ForgetPassword> {
-                ForgetPasswordEntry()
+                ForgotPasswordEntry(
+                    backStack = authBackStack,
+                    appViewModel = appViewModel
+                )
+            }
+            entry<NavRoute.Auth.ResetPassword> {
+                ResetPasswordEntry()
             }
         }
     )

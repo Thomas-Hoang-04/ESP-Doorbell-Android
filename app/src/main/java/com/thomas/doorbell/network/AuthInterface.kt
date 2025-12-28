@@ -3,6 +3,10 @@ package com.thomas.doorbell.network
 import com.thomas.doorbell.dto.AvailabilityResponse
 import com.thomas.doorbell.dto.LoginRequest
 import com.thomas.doorbell.dto.LoginResponse
+import com.thomas.doorbell.dto.OTPRequest
+import com.thomas.doorbell.dto.OTPResponse
+import com.thomas.doorbell.dto.OTPValidationRequest
+import com.thomas.doorbell.dto.PasswordResetRequest
 import com.thomas.doorbell.dto.RegisterRequest
 import com.thomas.doorbell.dto.User
 import retrofit2.Response
@@ -25,5 +29,14 @@ interface AuthInterface {
     suspend fun checkEmailAvailability(@Query("email") email: String): Response<AvailabilityResponse>
 
     @GET("api/auth/check-exist")
-    suspend fun checkLoginAvailability(@Query("login") login: String): Response<AvailabilityResponse>
+    suspend fun checkLoginExists(@Query("login") login: String): Response<AvailabilityResponse>
+
+    @POST("api/auth/reset-password")
+    suspend fun resetPassword(@Body request: PasswordResetRequest): Response<AvailabilityResponse>
+
+    @POST("api/verify/send")
+    suspend fun sendOTP(@Body request: OTPRequest): Response<OTPResponse>
+
+    @POST("api/verify/validate")
+    suspend fun validateOTP(@Body request: OTPValidationRequest): Response<OTPResponse>
 }

@@ -7,7 +7,7 @@
     <string name="username_empty_error">Username cannot be empty</string>
     <string name="username_invalid_error">Invalid username</string>
     <string name="password_empty_error">Password cannot be empty</string>
-    <string name="password_length_error">Password must be at least 6 characters</string>
+    <string name="password_length_error">Password must be at least 8 characters</string>
     <string name="acc_save">Save Account</string>
     <string name="forget_pwd">Forget Password?</string>
     <string name="login">Log In</string>
@@ -17,6 +17,37 @@
     <string name="login_prompt_2">Log in here</string>
     <string name="user_not_exist_error">User does not exist</string>
     <string name="user_exist_error">User existed</string>
-    <string name="error">Error occured. Please try again</string>
+    <string name="error">Error occurred. Please try again</string>
     <string name="pwd_error">Incorrect password</string>
+    <string name="username_length_error">Username must be within 3 to 50 characters</string>
+    <string name="email_empty_error">Email must not be empty</string>
+    <string name="email_format_error">Wrong email format</string>
+    <string name="net_error">Please connect to the Internet (Wi-FI/Cellular)</string>
+    <string name="register">Register account</string>
+    <string name="email_label" translatable="false">Email</string>
+    <string name="email_prompt">Enter email</string>
+    <string name="verify_pwd">Verify Password</string>
+    <string name="no_match_pwd">Password not match</string>
+    <string name="pwd_verify_prompt">Reenter password</string>
+    <string name="notify">Enable Notification</string>
+    <string name="term_of_use">Term of Services</string>
+    <string name="policy">User polices</string>
+    <string name="agree">I agree to the</string>
+    <string name="and">and</string>
+    <string name="register_btn">Sign Up Now</string>
+    <string name="otp_prompt">Email Verification</string>
+    <string name="otp_placeholder">We have sent an verification code to %1$s. Please check your mailbox and enter the code below</string>
+    <string name="otp_not_received">Verification code not found?</string>
+    <string name="otp_resend">Resend after %1$ds</string>
+    <string name="otp_resend_2">Resend</string>
+    <string name="email_exist_error">Email existed</string>
+    <string name="login_prompt">Enter username/email</string>
+    <string name="otp_req_failed">Can not request verification. Please try again</string>
+    <string name="otp_no_back">Please verify your account</string>
+    <string name="verify">Verify</string>
+    <string name="otp_resend_success">OTP request successful. Please check your email</string>
+    <string name="otp_not_match">OTP not match. Please try again</string>
+    <string name="otp_expired">OTP expired. Please request a new one</string>
+    <string name="otp_description">We will send you an OTP for verification</string>
+    <string name="cont">Continue</string>
 </resources>

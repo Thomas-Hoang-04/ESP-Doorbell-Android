@@ -7,6 +7,8 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Videocam
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation3.runtime.NavKey
+import com.thomas.doorbell.dto.OTPPurpose
+import com.thomas.doorbell.dto.OTPRequest
 import kotlinx.serialization.Serializable
 
 enum class HomeDestinations(
@@ -23,15 +25,29 @@ enum class HomeDestinations(
 sealed interface NavRoute: NavKey {
 
     @Serializable
-    data object Auth: NavRoute {
+    sealed interface Auth: NavRoute {
         @Serializable
-        data object Login: NavRoute
+        data object Login: Auth
 
         @Serializable
-        data object Register: NavRoute
+        data object Register: Auth
 
         @Serializable
-        data object ForgetPassword: NavRoute
+        data object ForgetPassword: Auth
+
+        @Serializable
+        data class ResetPassword(val login: String): Auth
+
+        @Serializable
+        data class OTP(
+            val username: String?,
+            val email: String,
+            val withOrigin: Boolean = false,
+            val withAuthEndpoint: Auth? = null,
+            val wipeBackStack: Boolean = false
+        ): NavRoute {
+            fun toRequest(purpose: OTPPurpose): OTPRequest = OTPRequest(username, email, purpose)
+        }
     }
 
     @Serializable

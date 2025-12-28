@@ -33,9 +33,6 @@ class LoginViewModel @Inject constructor(
     val username = TextFieldState("")
     val pwd = TextFieldState("")
 
-    private val _rememberMe = MutableStateFlow(false)
-    val rememberMe = _rememberMe.asStateFlow()
-
     private val _usernameError = MutableStateFlow<Int?>(null)
     val usernameError = _usernameError.asStateFlow()
     private val _usernameTouched = MutableStateFlow(false)
@@ -70,10 +67,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun rememberMe() = _rememberMe.update { !it }
-
-    fun rememberMe(value: Boolean) = _rememberMe.update { value }
-
     fun onUsernameFocusChange(focused: Boolean) {
         if (!focused) {
             _usernameTouched.update { true }
@@ -88,17 +81,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun storeData() {
-        viewModelScope.launch {
-            dataStore.updateData {
-                it.copy(
-                    username = username.text.toString(),
-                    password = pwd.text.toString(),
-                )
-            }
-        }
-    }
-
     fun login(
         onSuccess: suspend (User) -> Unit,
         onLoginFailed: () -> Unit,
@@ -106,7 +88,7 @@ class LoginViewModel @Inject constructor(
     ) {
         if (validateAll()) {
             viewModelScope.launch {
-                val req = authInterface.checkLoginAvailability(
+                val req = authInterface.checkLoginExists(
                     username.text.toString()
                 )
                 if (req.isSuccessful) {
@@ -120,7 +102,12 @@ class LoginViewModel @Inject constructor(
                         )
                         if (loginReq.isSuccessful) {
                             val loginRes = loginReq.body() as LoginResponse
-                            if (_rememberMe.value) storeData()
+                            dataStore.updateData {
+                                it.copy(
+                                    username = username.text.toString(),
+                                    password = pwd.text.toString(),
+                                )
+                            }
                             tokenManager.setToken(loginRes.token)
                             onSuccess(loginRes.user)
                         } else {
@@ -148,7 +135,7 @@ class LoginViewModel @Inject constructor(
     private fun validatePassword(pwd: String) {
         val error = when {
             pwd.isEmpty() -> R.string.password_empty_error
-            pwd.length < 6 -> R.string.password_length_error
+            pwd.length < 8 -> R.string.password_length_error
             else -> null
         }
 

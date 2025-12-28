@@ -25,7 +25,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.TextObfuscationMode
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.Info
@@ -48,6 +47,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -55,7 +55,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.zIndex
@@ -64,7 +66,7 @@ import com.thomas.doorbell.ui.theme.DialogColor
 import com.thomas.doorbell.ui.theme.LabelColor
 import com.thomas.doorbell.ui.theme.PrimaryColor
 import com.thomas.doorbell.ui.theme.TextColor
-import com.thomas.doorbell.ui.theme.bg_inputColor
+import com.thomas.doorbell.ui.theme.InputContainerColor
 
 // ============================================================
 // Input Types
@@ -86,7 +88,7 @@ sealed class AnnotatedText {
     data class Clickable(
         val text: String,
         val style: SpanStyle = SpanStyle(),
-        val onClick: (String) -> Unit
+        val onClick: (String) -> Unit,
     ) : AnnotatedText()
 }
 
@@ -186,11 +188,11 @@ private fun DialogButtonRow(
 // ============================================================
 
 @Composable
-fun HeadingTextComponent(value: String) {
+fun HeadingTextComponent(value: String, maxWidth: Boolean = true) {
     Text(
         text = value,
         modifier = Modifier
-            .fillMaxWidth()
+            .then(Modifier.fillMaxWidth().takeIf { maxWidth } ?: Modifier)
             .heightIn(),
         style = TextStyles.heading,
         color = TextColor,
@@ -200,35 +202,32 @@ fun HeadingTextComponent(value: String) {
 
 @Composable
 fun ClickableTextComponent(
-    texts: List<AnnotatedText>,
-    style: TextStyle = TextStyles.label.copy(fontWeight = FontWeight.Normal)
+    style: TextStyle = TextStyles.label.copy(fontWeight = FontWeight.Normal),
+    vararg texts: AnnotatedText
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        texts.forEachIndexed { idx, text ->
+    val annotatedString = buildAnnotatedString {
+        texts.forEach { text ->
             when (text) {
-                is AnnotatedText.Plain -> {
-                    Text(
-                        text = text.text + " ".takeIf { idx < texts.lastIndex },
-                        style = style
-                    )
-                }
+                is AnnotatedText.Plain -> append(text.text)
                 is AnnotatedText.Clickable -> {
-                    Text(
-                        text = buildAnnotatedString {
-                            withStyle(text.style) {
-                                append(text.text)
-                                append(" ".takeIf { idx < texts.lastIndex } ?: "")
-                            }
-                        },
-                        style = style,
-                        modifier = Modifier.clickable { text.onClick(text.text) }
-                    )
+                    withLink(
+                        LinkAnnotation.Clickable(tag = text.text) {
+                            text.onClick(text.text)
+                        }
+                    ) {
+                        withStyle(text.style) {
+                            append(text.text)
+                        }
+                    }
                 }
             }
         }
     }
+
+    Text(
+        text = annotatedString,
+        style = style
+    )
 }
 
 // ============================================================
@@ -258,7 +257,7 @@ fun TextInput(
                 shape = RoundedCornerShape(6.dp)
             )
             .background(
-                color = bg_inputColor,
+                color = InputContainerColor,
                 shape = RoundedCornerShape(6.dp)
             )
             .padding(10.dp)
@@ -404,7 +403,7 @@ fun IconTextInput(
                 shape = RoundedCornerShape(6.dp)
             )
             .background(
-                color = bg_inputColor,
+                color = InputContainerColor,
                 shape = RoundedCornerShape(6.dp)
             )
             .padding(10.dp)
@@ -542,17 +541,19 @@ fun CustomButton(
     value: String,
     color: ButtonColors,
     modifier: Modifier = Modifier,
+    rounded: Dp = 10.dp,
     enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     Button(
         onClick = onClick,
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .heightIn(48.dp),
+            .heightIn(48.dp)
+            .then(modifier),
         colors = color,
         enabled = enabled,
-        shape = RoundedCornerShape(6.dp)
+        shape = RoundedCornerShape(rounded)
     ) {
         Text(
             text = value,

@@ -21,8 +21,6 @@ data class User(
     val isActive: Boolean = true,
     @SerializedName("email_verified")
     val isEmailVerified: Boolean = false,
-    @SerializedName("notification_enabled")
-    val notificationEnabled: Boolean = true,
     @SerializedName("last_login")
     val lastLoginAt: String? = null,
     @SerializedName("device_access")
@@ -53,9 +51,15 @@ data class UserDeviceAccess(
 data class RegisterRequest(
     val username: String?,
     val email: String,
-    val password: String
+    val password: String,
 )
 
 data class AvailabilityResponse(
     val available: Boolean
+)
+
+data class PasswordResetRequest(
+    val login: String,
+    @SerializedName("new_password")
+    val newPassword: String
 )
