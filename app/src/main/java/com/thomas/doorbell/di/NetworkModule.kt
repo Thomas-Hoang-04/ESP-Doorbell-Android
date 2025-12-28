@@ -1,11 +1,15 @@
 package com.thomas.doorbell.di
 
+import android.content.Context
+import android.net.ConnectivityManager
 import com.thomas.doorbell.network.APIInterface
 import com.thomas.doorbell.network.AuthInterceptor
 import com.thomas.doorbell.network.AuthInterface
+import com.thomas.doorbell.network.NetworkMonitor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -51,4 +55,17 @@ object NetworkModule {
             .build()
             .create(APIInterface::class.java)
 
+    @Provides
+    @Singleton
+    fun provideConnectivityManager(
+        @ApplicationContext context: Context
+    ): ConnectivityManager
+        = context.getSystemService(Context.CONNECTIVITY_SERVICE)
+            as ConnectivityManager
+
+    @Provides
+    @Singleton
+    fun provideNetworkMonitor(
+        connectivityManager: ConnectivityManager
+    ): NetworkMonitor = NetworkMonitor(connectivityManager)
 }
